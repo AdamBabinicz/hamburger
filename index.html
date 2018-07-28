@@ -1,0 +1,171 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
+    
+   <style>
+    
+
+body {
+  font-family: 'Montserrat', 'Fira Sans', 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  background: #42bd41;
+}
+
+.fa-home,
+.fa-user,
+.fa-briefcase,
+.fa-trophy,
+.fa-cart-arrow-down,
+.fa-envelope-open {
+  color: fff;
+  padding-right: 30px;
+  padding-left: 0px;
+  display: inline;
+}
+
+#menu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: #111;
+  border-radius: 5px;
+  z-index: 200;
+}
+#menu-button:after {
+  position: absolute;
+  content: "☰";
+  font-size: 42px;
+  color: #FFF;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+#menu-button:hover {
+  opacity: .8;
+}
+
+#menu-button.on:after {
+  content: "x";
+}
+
+#overlay {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+#overlay.open {
+  display: block;
+}
+
+#hamburger-menu {
+  height: auto;
+  width: 0;
+  background: #111;
+  position: fixed;
+  top: 20px;
+  left: 90px;
+  z-index: 101;
+  /*overflow: hidden;*/
+  border-radius: 5px;
+}
+#hamburger-menu nav {
+  padding: 10px;
+  z-index: 101;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+#hamburger-menu nav a {
+  display: block;
+  padding: 10px;
+  height: 1em;
+  color: #ccc;
+  font-size: 1em;
+  line-height: 1em;
+  text-decoration: none;
+  overflow: hidden;
+}
+#hamburger-menu nav a:hover {
+  cursor: pointer;
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.09);
+}
+    </style> 
+    
+</head>
+    <body>
+    <div class="content">
+  <a id="menu-button"></a>
+  <div id="hamburger-menu">
+    <nav>
+      <a href=""><i class="fa fa-home"></i>Start</a>
+      <a href=""><i class="fa fa-user"></i>Oferta</a>
+      <a href=""><i class="fa fa-briefcase"></i>Projekty</a>
+      <a href=""><i class="fa fa-trophy"></i>Zalety</a>
+      <a href=""><i class="fa fa-cart-arrow-down"></i>Cennik</a>
+      <a href=""><i class="fa fa-envelope-open"></i>Kontakt</a>
+    </nav>
+  </div>
+  <div id="overlay"></div>
+</div>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+      $(function(){
+  var width   = 200,
+      height  = 44 * 6 + 20,
+      speed   = 500,
+      button  = $('#menu-button'),
+      overlay = $('#overlay'),
+      menu    = $('#hamburger-menu');
+
+  button.on('click',function(e){
+    if(overlay.hasClass('open')) {
+      animate_menu('close');
+    } else {
+      animate_menu('open');
+    }
+  });
+
+  overlay.on('click', function(e){
+    if(overlay.hasClass('open')) {
+      animate_menu('close');
+    }
+  });
+
+  $('a[href="#"]').on('click', function(e){
+    e.preventDefault();
+  });
+
+  function animate_menu(menu_toggle) {
+    if(menu_toggle == 'open') {
+      overlay.addClass('open');
+      button.addClass('on');
+      overlay.animate({opacity: 1}, speed);
+      menu.animate({width: width, height: height}, speed);
+    }
+
+    if(menu_toggle == 'close') {
+      button.removeClass('on');
+      overlay.animate({opacity: 0}, speed);
+      overlay.removeClass('open');
+      menu.animate({width: "0", height: 0}, speed);
+    }
+  }
+});  
+    </script>
+    </body>
+</html>
